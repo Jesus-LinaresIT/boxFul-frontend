@@ -3,18 +3,22 @@ import { Button, Card, Form, Input, message } from "antd";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styles from "../../styles/auth.module.css";
+import { useAuthStore } from "@/store/authStore";
+
 
 const Login = () => {
    const [loading, setLoading] = useState(false);
    const router = useRouter();
+   const { loginLS } = useAuthStore();
 
    const onFinish = async (values: {email: string; password: string}) => {
       setLoading(true);
       try {
+         console.log(values);
          const data = await login(values);
-         localStorage.setItem("token", data.token);
-         message.success("Login successful");
-         router.push("/dashboard");
+         loginLS(data.access_token);
+         message.success("Login exitoso");
+         router.push("/");
       } catch (error) {
          message.error('Credenciales incorrectas');
          console.error(error);
@@ -29,7 +33,7 @@ const Login = () => {
             <Form layout="vertical" onFinish={onFinish}>
                <Form.Item
                   label="Email"
-                  name="Email"
+                  name="email"
                   rules={[{ required: true, message: 'Ingresa tu correo' }]}
                >
                   <Input />

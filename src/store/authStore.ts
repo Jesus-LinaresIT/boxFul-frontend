@@ -2,15 +2,22 @@ import { create } from "zustand"
 import { jwtDecode } from "jwt-decode"
 
 export const useAuthStore = create<AuthState>((set) => ({
-   token: null,
+   access_token: null,
    user: null,
-   login: (token) => {
-      localStorage.setItem("token", token);
-      const user = jwtDecode(token);
-      set({ token, user });
+   loginLS: (access_token) => {
+      localStorage.setItem("access_token", access_token);
+      const user = jwtDecode(access_token);
+      set({ access_token, user });
    },
-   logout: () => {
-      localStorage.removeItem("token");
-      set({ token: null, user: null });
+   logoutLS: () => {
+      localStorage.removeItem("access_token");
+      set({ access_token: null, user: null });
+   },
+   checkAuth: () => {
+      const access_token = localStorage.getItem("access_token");
+      if (access_token) {
+         const user = jwtDecode(access_token);
+         set({ access_token, user });
+      }
    },
 }))

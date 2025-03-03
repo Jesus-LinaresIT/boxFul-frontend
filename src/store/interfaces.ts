@@ -1,7 +1,8 @@
 
 interface AuthState {
-   token: string | null;
+   access_token: string | null;
    user: any;
-   login: (token: string) => void;
-   logout: () => void;
+   loginLS: (access_token: string) => void;
+   logoutLS: () => void;
+   checkAuth: () => void;
 }
