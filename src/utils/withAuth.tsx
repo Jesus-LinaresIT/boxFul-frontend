@@ -5,16 +5,20 @@ import { useEffect } from "react";
 
 const withAuth = (WrapperComponent: any) => {
    return (props: any) => {
-      const token = useAuthStore();
+      const {access_token, checkAuth, isLoading} = useAuthStore();
       const router = useRouter();
 
       useEffect(() => {
-         if (!token) {
+         checkAuth();
+      }, []);
+
+      useEffect(() => {
+         if (!access_token && !isLoading) {
             router.push("/auth/login");
          }
-      }, [token]);
+      }, [access_token, isLoading]);
 
-      if (!token) return null;
+      if (isLoading) return <p>Cargando...</p>;
 
       return <WrapperComponent {...props} />;
    }

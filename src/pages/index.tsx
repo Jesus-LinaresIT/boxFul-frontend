@@ -1,31 +1,24 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useAuthStore } from "../store/authStore";
+import { Button } from "antd";
+import withAuth from '../utils/withAuth';
+import OrderForm from "./components/OrderForm";
 
 
 const Dashboard = () => {
-   const router = useRouter();
-   const { access_token, user, checkAuth } = useAuthStore();
-
-   useEffect(() => {
-      checkAuth();
-   }, []);
-
-   // Si no hay token, redirige al login
-   useEffect(() => {
-      console.log(access_token);
-
-      if (!access_token) {
-         router.push("/auth/login");
-      }
-   }, [access_token, router]);
+   const { user, logoutLS, } = useAuthStore();
 
    return (
       <div>
-         <h1>Bienvenido al Dashboard</h1>
+         {/* <h1>Bienvenido al Dashboard</h1> */}
          {user && <p>Usuario: {user.name}</p>}
+         <Button type="primary" danger onClick={logoutLS}>
+            Cerrar Sesión
+         </Button>
+         <OrderForm />
       </div>
    );
 };
 
-export default Dashboard;
+export default withAuth(Dashboard);

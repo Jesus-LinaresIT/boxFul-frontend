@@ -1,7 +1,7 @@
 import { login } from "@/services/authServices";
 import { Button, Card, Form, Input, message } from "antd";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import styles from "../../styles/auth.module.css";
 import { useAuthStore } from "@/store/authStore";
 
@@ -11,14 +11,16 @@ const Login = () => {
    const router = useRouter();
    const { loginLS } = useAuthStore();
 
+
    const onFinish = async (values: {email: string; password: string}) => {
       setLoading(true);
       try {
-         console.log(values);
          const data = await login(values);
          loginLS(data.access_token);
+
          message.success("Login exitoso");
          router.push("/");
+
       } catch (error) {
          message.error('Credenciales incorrectas');
          console.error(error);
@@ -51,6 +53,9 @@ const Login = () => {
                   </Button>
                </Form.Item>
             </Form>
+            <p style={{ marginTop: 10, textAlign: "center" }}>
+               ¿No tienes cuenta? <a onClick={() => router.push("/auth/register")}>Regístrate</a>
+            </p>
          </Card>
       </div>
    );

@@ -1,0 +1,152 @@
+.container{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   height: 85vh;
+   background-color: #f8f9fb;
+}
+
+.containerHeader{
+   margin-top: 60px;
+   margin-bottom: 20px;
+   max-width: 1000px;
+   width: 100%;
+}
+
+.card{
+   width: 100%;
+   max-width: 1000px;
+   padding: 20px;
+   background: #fff;
+   border-radius: 10px;
+   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.title{
+   margin-bottom: 10px;
+   font-size: 24px;
+   font-weight: bold;
+   color: #343333;
+   font-family: 'Poppins', sans-serif;
+}
+
+.subtitle{
+   font-size: 14px;
+   font-weight: 500;
+   margin-bottom: 10px;
+   color: #6c757d;
+   font-family: 'Poppins', sans-serif;
+}
+
+.datePickerContainer {
+   display: flex;
+   align-items: center;
+   border: 1px solid #d9d9d9;
+   border-radius: 8px;
+   overflow: hidden;
+   height: 48px;
+   background: #e6e5e5;
+}
+
+.dateIcon {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 0 12px;
+}
+
+.customDatePicker {
+   width: 100%;
+   border: none;
+   outline: none;
+   height: 100%;
+   padding-left: 12px;
+   border-left: 1px solid #c4c3c3;
+   border-radius: 0;
+   -webkit-border-radius: 0;
+   -moz-border-radius: 0;
+   -ms-border-radius: 0;
+   -o-border-radius: 0;
+}
+
+.phoneInputContainer {
+   display: flex;
+   align-items: center;
+   border: 1px solid #d9d9d9;
+   border-radius: 8px;
+   overflow: hidden;
+   height: 48px;
+   -webkit-border-radius: 8px;
+   -moz-border-radius: 8px;
+   -ms-border-radius: 8px;
+   -o-border-radius: 8px;
+}
+
+.countrySelect {
+   width: 100px !important;
+   height: 48px;
+   background: #e0dede;
+}
+
+.phoneInput {
+   width: 100%;
+   border: none;
+   outline: none;
+   padding: 12px;
+   font-size: 16px;
+   border-left: 1px solid #bebebe;
+   border-radius: 0;
+   -webkit-border-radius: 0;
+   -moz-border-radius: 0;
+   -ms-border-radius: 0;
+   -o-border-radius: 0;
+}
+
+
+.customDatePicker .ant-picker-input > input {
+   font-size: 16px;
+}
+
+.inpuntHeigh{
+   height: 48px;
+}
+
+.formGrid{
+   display: grid;
+   grid-template-columns: repeat(3, 1fr) ;
+   gap: 15px;
+}
+
+.span1{
+   grid-column: span 1;
+}
+
+.span2{
+   grid-column: span 2;
+}
+
+.span3{
+   grid-column: span 3;
+}
+
+.buttonContainer {
+   display: flex;
+   justify-content: right;
+   margin-top: 20px;
+}
+
+.primaryButton {
+   height: 60px;
+   background-color: #2f80ed;
+   border: none;
+   font-weight: bold;
+   padding: 10px 20px;
+   border-radius: 5px;
+   color: #ffffff;
+   width: 200px;
+}
+
+.primaryButton:hover {
+   background-color: #1c6cd5;
+}
