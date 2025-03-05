@@ -23,6 +23,9 @@ Antes de iniciar, asegúrate de tener instalado:
    ```sh
    git clone https://github.com/Jesus-LinaresIT/boxFul-frontend.git
    cd boxful-frontend
+   git fetch -v
+   git checkout dev
+   git pull
 
 2. **Instalar dependencias:**:
    ```sh
