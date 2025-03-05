@@ -27,7 +27,6 @@ Antes de iniciar, asegúrate de tener instalado:
 2. **Instalar dependencias:**:
    ```sh
    npm install
-   # o si usas yarn
    yarn install
 
 3. **Configurar variables de entorno: Crea un archivo .env.local en la raíz del proyecto y agrega:**
