@@ -8,7 +8,7 @@ export const AddressPlacesDestination = ({ handleChange, orderData, setOrderData
    return (
       <>
          <Form.Item label="📍 Dirección del destinatario" className={styles.span2} rules={[{ required: true, message: 'Por favor ingrese la dirección del destinatario' }]}>
-            <Input className={styles.inpuntHeigh} name="destinationAddress" value={orderData.destinationAddress} onChange={handleChange} />
+            <Input className={styles.inpuntHeigh} name="recipientAddress" value={orderData.recipientAddress} onChange={handleChange} />
          </Form.Item>
 
          <Form.Item label="Departamento" className={styles.span1} rules={[{ required: true, message: 'Por favor ingrese el Departamento' }]}>

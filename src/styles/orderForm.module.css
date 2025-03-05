@@ -1,14 +1,13 @@
 .container{
    display: flex;
-   justify-content: center;
    align-items: center;
    flex-direction: column;
-   height: 85vh;
+   height: 100vh;
    background-color: #f8f9fb;
 }
 
 .containerHeader{
-   margin-top: 60px;
+   margin: 15;
    margin-bottom: 20px;
    max-width: 1000px;
    width: 100%;
@@ -17,10 +16,12 @@
 .card{
    width: 100%;
    max-width: 1000px;
+   max-height: auto;
    padding: 20px;
    background: #fff;
    border-radius: 10px;
    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+   overflow: visible
 }
 
 .title{
@@ -130,11 +131,11 @@
    grid-column: span 3;
 }
 
-.buttonContainer {
+/* .buttonContainer {
    display: flex;
    justify-content: right;
    margin-top: 20px;
-}
+} */
 
 .primaryButton {
    height: 60px;
@@ -150,3 +151,78 @@
 .primaryButton:hover {
    background-color: #1c6cd5;
 }
+
+.backButton {
+   height: 60px;
+   background-color: #e2e2e2;
+   border: none;
+   font-weight: bold;
+   padding: 10px 15px;
+   border-radius: 5px;
+   color: #929191;
+   width: 140px;
+}
+
+.backButton:hover {
+   background-color: #d3d2d2 !important;
+   color: #797777 !important;
+}
+
+.addPackageButton {
+   height: 60px;
+   background-color: #e2e2e2;
+   border: none;
+   font-weight: bold;
+   padding: 10px 15px;
+   border-radius: 5px;
+   color: #707070;
+   width: 140px;
+}
+
+
+/*Form step 2*/
+.packageContainer {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 15px;
+   padding: 15px;
+   border-radius: 8px;
+   background: #ffffff;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+   margin-bottom: 10px;
+}
+
+.newPackage {
+   background: #f5f5f5;
+}
+
+.addedPackage {
+   border: 2px solid #3dbb5d; /* Verde */
+}
+
+.inputGroup {
+   display: flex;
+}
+
+.inputItemDimensions{
+   height: 48px;
+   width: 80px;
+}
+
+.buttonContainer {
+   display: flex;
+   justify-content: flex-end;
+   width: 100%;
+   margin-top: 10px;
+}
+
+/* Quitar los botones de incremento y decremento */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
+}
+
+
+
+

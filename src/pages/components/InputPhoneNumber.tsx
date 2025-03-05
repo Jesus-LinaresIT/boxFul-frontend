@@ -22,7 +22,7 @@ export const InputPhoneNumber = ({ orderData, handleChange, selectedCountry, set
                         </Select.Option>
                      ))}
                </Select>
-               <Input className={styles.phoneInput} name="phone" value={orderData.phone} onChange={handleChange} />
+               <Input className={styles.phoneInput} name="senderPhone" value={orderData.senderPhone} onChange={handleChange} />
             </div>
          </Form.Item>
       </>

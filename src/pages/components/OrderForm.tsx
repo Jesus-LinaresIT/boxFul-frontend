@@ -1,18 +1,21 @@
 
-import { Card, Form, Input, Button, Select, DatePicker, message } from 'antd';
-import { ArrowRightOutlined } from "@ant-design/icons";
+import { Card, Form, Button, message } from 'antd';
+import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import styles from '../../styles/orderForm.module.css'
 import { OrderData, Packages } from '../types';
 import { useState } from 'react';
 import { orderCreate } from '@/services/authServices';
+import dayjs from 'dayjs';
 import countryCodes from '@/utils/CountryCodes';
 import { PersonalDataForm } from './PersonalDataForm';
 import { PickAddres_PickDate } from './PickAddres_PickDate';
 import { AddressPlacesDestination } from './AddressPlacesDestination';
 import { ReferenceAndDirections } from './ReferenceAndDirections';
 import { InputPhoneNumber } from './InputPhoneNumber';
+import { PackageForm } from './PackageForm';
+import { validateFields, validatePackages } from '@/utils/Helper';
+import { PackageFormReverse } from './PackFormReverse';
 
-const { Option } = Select;
 
 const OrderForm = () => {
    const [currentStep, setCurrentStep] = useState(0);
@@ -21,11 +24,11 @@ const OrderForm = () => {
    const [orderData, setOrderData] = useState<OrderData>({
       pickupAddress: "",
       scheduledDate: "",
-      name: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      destinationAddress: "",
+      senderName: "",
+      senderLastName: "",
+      senderEmail: "",
+      senderPhone: "",
+      recipientAddress: "",
       department: "",
       municipality: "",
       referencePoint: "",
@@ -36,6 +39,13 @@ const OrderForm = () => {
    const [selectedCountry, setSelectedCountry] = useState(countryCodes[0]); //SV por defecto
 
    const [packages, setPackage] = useState<Packages[]>([]);
+   const [currentPackage, setCurrentPackage] = useState<Packages>({
+      length: 0,
+      width: 0,
+      height: 0,
+      weight: 0,
+      content: "",
+   });
 
    const handleChange = (e: any) => {
       setOrderData({
@@ -44,22 +54,15 @@ const OrderForm = () => {
       });
    };
 
-   const handleDateChange = (dateString: string | string[]) => {
-      const formattedDateString = Array.isArray(dateString) ? dateString[0] : dateString;
+   const handleDateChange = (date: dayjs.Dayjs | null) => {
+      if(!date) return;
+
+      const formattedDateString = date.format("YYYY-MM-DD");
+      console.log(formattedDateString);
       setOrderData({
          ...orderData,
          scheduledDate: formattedDateString,
       });
-   }
-
-   const addPackage = () => {
-      setPackage([...packages, {
-         length: 0,
-         width: 0,
-         height: 0,
-         weight: 0,
-         content: "",
-      }]);
    }
 
    const updatePackage = <K extends keyof Packages>(index: number, field: K, value: Packages[K]) => {
@@ -68,17 +71,23 @@ const OrderForm = () => {
       setPackage(updatePackages);
    }
 
+   const onRemoveAdd = () => {
+      setPackage([...packages, currentPackage]); // Agregar paquete a la lista
+      setCurrentPackage({ length: 0, width: 0, height: 0, weight: 0, content: "" }); // Limpiar el formulario
+   }
+
    const removePackage = (index: number) => {
       setPackage(packages.filter((_, i) => i !== index));
    }
 
    const handleSubmit = async () => {
       const payload = {...orderData, packages};
+      console.log(payload);
       try{
          const response = await orderCreate(payload);
          console.log(response);
          message.success('Orden creada correctamente');
-
+         setCurrentStep(0);
       }catch(error){
          console.error(error);
          message.error('Error al crear la orden');
@@ -109,16 +118,69 @@ const OrderForm = () => {
                      <ReferenceAndDirections handleChange={handleChange} orderData={orderData} />
 
                      <div className={`${styles.buttonContainer} ${styles.span3}`}>
-                        <Button  type="primary" className={ styles.primaryButton } onClick={() => setCurrentStep(1)} >
+                        <Button
+                              type="primary" 
+                              className={ styles.primaryButton } 
+                              onClick={ async () => {
+                                 const { messageForm, isValid } = validateFields(orderData);
+                                 if(!isValid){
+                                    message.error(messageForm)
+                                    return;
+                                 }
+                                 console.log(orderData)
+                                 setCurrentStep(1);
+                              }} >
                            <span style={{ marginInlineEnd: 'auto' }}>Siguiente</span><ArrowRightOutlined />
                         </Button>
                      </div>
-
                </Form>
+            )}
+
+            {currentStep === 1 && (
+               <>
+                  <h3>Agrega tus bultos</h3>
+                  <PackageForm
+                     pkg={currentPackage}
+                     onChange={(field, value) => setCurrentPackage({ ...currentPackage, [field]: value })}
+                     onRemove={onRemoveAdd}
+                     isNew
+                  />
+
+                  {packages.length > 0 && (
+                     <>
+                        <h3>Paquetes agregados</h3>
+                        {packages.map((pkg, index) => (
+                           <PackageFormReverse
+                              key={index}
+                              pkg={pkg}
+                              onChange={(field, value) => updatePackage(index, field, value)} 
+                              onRemove={() => removePackage(index)} 
+                              />
+                        ))}
+                     </>
+                  )}
+
+                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: 20 }}>
+                     <Button className={styles.backButton} type="primary" onClick={() => setCurrentStep(0)}>
+                        <ArrowLeftOutlined /> Regresar
+                     </Button>
+                     <Button className={styles.primaryButton} type="primary" onClick={() => {
+
+                           const { isValid, messageForm } = validatePackages(packages);
+                           if (!isValid) {
+                              message.error(messageForm);
+                              return;
+                           }
+                           handleSubmit();
+                        }}>
+
+                        <span style={{ marginInlineEnd: 'auto' }}>Enviar</span><ArrowRightOutlined />
+                     </Button>
+                  </div>
+               </>
             )}
          </Card>
       </div>
-   )
-}
-
+   );
+};
 export default OrderForm;

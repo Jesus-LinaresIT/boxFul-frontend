@@ -1,0 +1,30 @@
+.dashboardContainer {
+   min-height: 100vh;
+   background-color: #f8f9fa;
+}
+
+.header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 10px 20px;
+   background: #fff;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+   margin-top: 20px;
+   height: 40px;
+}
+
+.userSection {
+   display: flex;
+   align-items: center;
+   gap: 15px;
+}
+
+.username {
+   font-size: 16px;
+   font-weight: 500;
+   margin-right: 15px;
+}

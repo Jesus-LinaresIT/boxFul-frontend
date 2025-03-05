@@ -2,15 +2,16 @@ import { set } from 'react-hook-form';
 export interface OrderData{
    pickupAddress: string;
    scheduledDate: string;
-   name: string;
-   lastName: string;
-   email: string;
-   phone: string;
-   destinationAddress: string;
+   senderName: string;
+   senderLastName: string;
+   senderEmail: string;
+   senderPhone: string;
+   recipientAddress: string;
    department: string;
    municipality: string;
    referencePoint: string;
    instructions: string;
+   packages?: Packages;
 }
 
 export interface Packages {
@@ -34,4 +35,11 @@ export interface PersonalDataFormProps {
    setSelectedCountry?: React.Dispatch<React.SetStateAction<Country>>;
    selectedCountry?: Country;
    orderData: OrderData;
+}
+
+export interface PackageFormProps {
+   pkg: Packages;
+   onChange: (field: keyof Packages, value: any) => void;
+   onRemove?: () => void;
+   isNew?: boolean;
 }
