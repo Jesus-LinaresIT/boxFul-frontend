@@ -39,5 +39,6 @@ Antes de iniciar, asegúrate de tener instalado:
    # o si usas yarn
    yarn dev
 
-
+#### Puntos Clave
+Antes de iniciar, asegúrarse de haber inicializado la API antes para evitar problemas de puerto
 
