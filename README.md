@@ -26,7 +26,6 @@ Antes de iniciar, asegúrate de tener instalado:
 
 2. **Instalar dependencias:**:
    npm install
-   # o si usas yarn
    yarn install
 
 3. **Configurar variables de entorno: Crea un archivo .env.local en la raíz del proyecto y agrega:**
@@ -34,7 +33,6 @@ Antes de iniciar, asegúrate de tener instalado:
 
 4.**Iniciar el servidor de desarrollo:**
    npm run dev
-   # o con yarn
    yarn dev
 
 
